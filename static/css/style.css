@@ -1,0 +1,177 @@
+header {
+    width: 1440px;
+    height: 69px;
+    flex-shrink: 0;
+    background: var(--WF-Base-100, #FCFCFC);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.logo-bar{
+    width: 200px;
+    height: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-button{
+    width: 24px;
+    height: 24px;
+    padding-bottom: 5px;
+}
+.logo{
+    color: var(--Base-900, #2C2C2C);
+    /* Headings/Web H1 */
+    font-family: "Cormorant Garamond";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 40px; /* 125% */
+}
+.search-bar{
+    display: flex;
+    width: 399px;
+    align-items: center;
+    gap: 8px;
+}
+.search{
+    border: 0;
+    width: 399px;
+}
+.search-form{
+    display: flex;
+    align-items: center;
+    width: 399px;
+    border-bottom: 1px solid grey;
+}
+#search-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex: 1 0 0;
+    border-bottom: 1px solid grey;
+    padding-bottom: 10px;
+}
+
+#search-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+gmp-map {
+  height: 100%;
+}
+
+footer {
+    width: 100%;
+    height: 490px;
+    margin-top: auto;
+    flex-shrink: 0;
+    background: var(--WF-Base-100, #FCFCFC);
+    position: relative;
+}
+
+
+.cellar {
+  position: absolute; /* Сделайте позицию абсолютной внутри родительского блока */
+  bottom: -60px; /* Поместите блок внизу */
+  left: 0; /* Разместите блок слева */
+  width: 100%; /* Сделайте блок на всю ширину родительского блока */
+  height: 60px; /* Укажите высоту блока */
+  background-color: var(--WF-Base-800, #484848);
+}
+
+
+.first-floor{
+    display: flex;
+    justify-content: space-around;
+}
+.second-floor{
+    display: flex;
+    justify-content: space-around;;
+    align-items:center;
+}
+.logo-footer{
+    margin-left:157px;
+    : 10px;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.product-image {
+  max-width: 200px; /* Максимальная ширина изображения */
+  max-height: 150px; /* Максимальная высота изображения */
+  object-fit: cover; /* Заполнение изображения, сохраняя соотношение сторон */
+  margin-bottom: 10px; /* Добавим отступ снизу для разделения изображений */
+}
+
+.product-list-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Три колонки с равной шириной */
+  gap: 20px; /* Отступ между элементами */
+}
+
+.product-item {
+  padding: 10px;
+  margin: 0;
+}
+
+.product-images {
+  max-width: 50%;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap; /* Перенос изображений на новую строку при необходимости */
+}
+
+.product-image {
+  max-width: 100%; /* Максимальная ширина изображения */
+  height: auto; /* Автоматическая высота для сохранения соотношения сторон */
+  margin-bottom: 5px; /* Добавим небольшой отступ между изображениями */
+}
+
+
+.product-detail-container {
+    width: 600px; /* Максимальная ширина контейнера */
+    height: 500px;
+    margin: 0 auto; /* Центрирование контейнера по горизонтали */
+}
+
+.product-images img {
+    max-width: 50%; /* Максимальная ширина изображения внутри .product-images */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+}
+
+# new
+
+.category-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.category-dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-dropdown li {
+    padding: 12px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.category-dropdown li:hover {
+    background-color: #ddd;
+}
+
+.icon-button:hover + .category-dropdown {
+    display: block;
+}

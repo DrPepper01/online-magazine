@@ -1,0 +1,12 @@
+{% extends 'layouts/index.html' %}
+
+{% block content %}
+  {% load static %}
+  <h2>Login</h2>
+  <div id="login-form-container" data-csrf="{% csrf_token %}"></div>
+  <script type="text/babel" src="{% static 'js/auth.js' %}"></script>
+  <script type="text/babel">
+    const container = document.getElementById('login-form-container');
+    ReactDOM.render(<LoginForm />, container);
+  </script>
+{% endblock %}

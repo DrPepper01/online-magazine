@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>"
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Bootstrap Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+<header>
+    <div class="logo-bar">
+        <div class="menu-button">
+            <a  data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+              <img src="http://127.0.0.1:8000/media/html/menu_button.svg" alt="Button Icon" class="img-fluid" style="width: 20px; height: 20px;">
+            </a>
+        </div>
+            <h1 class="logo">Calliope.kz</h1>
+    </div>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+          <ul class="list-group list-group-flush">
+            {% for category in categories %}
+              <li class="list-group-item">
+                <a href="{% url 'category_detail' category_slug=category.slug %}">{{ category.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+      </div>
+
+    </div>
+    <div class="search-bar">
+        <img src="http://127.0.0.1:8000/media/html/ic_search.svg" alt="Button Icon">
+        <form class="search-form" action="{% url 'search_view' %}" method="GET">
+          <input type="search" class="search" name="q" placeholder="Enter your search term" onInput="submitSearch()">
+        </form>
+    </div>
+
+    <div class="help-bar">
+        <img src="http://127.0.0.1:8000/media/html/carbon_help.svg">
+    </div>
+
+    <div>
+        <button class="like-button">
+            <img src="http://127.0.0.1:8000/media/html/lucide_heart.svg" alt="Button Icon">
+        </button>
+        <button class="my-order">
+            <img src="http://127.0.0.1:8000/media/html/solar_box-outline.svg" alt="Button Icon">
+        </button>
+        <button class="cart">
+            <img src="http://127.0.0.1:8000/media/html/shopping-basket-line.svg" alt="Button Icon">
+        </button>
+        <button class="account">
+            <img src="http://127.0.0.1:8000/media/html/codicon_account.svg" alt="Button Icon">
+        </button>
+    </div>
+
+
+
+    <div id="search-container"></div>
+    <script type="text/babel" src="{% static 'js/app.js' %}"></script>
+
+    </header>
+{% block content %}
+{% endblock %}
+
+<footer>
+    <h1 class="logo-footer"> Calliope.kz 2009 ©</h1>
+    <div class="first-floor">
+        <div>
+            <h3>Мы в соцсетях</h3>
+        </div>
+        <div>
+            <h3>Политика</h3>
+            <p>Условия покупки</p>
+            <p>Условия возврата и обмена</p>
+        </div>
+        <div>
+            <h3>Помощь покупателю</h3>
+            <p>Как сделать заказ</p>
+            <p>Доставка и оплата</p>
+        </div>
+        <div>
+            <h3>Контакты</h3>
+            <p>Наш магазин</p>
+            <p>Телефоны для связи</p>
+        </div>
+    </div>
+    <div class="second-floor">
+        <div>
+            <h3>Адрес магазина</h3>
+                <p>ТЦ Артем; ул. Сакена Сейфуллина 47 </p>
+                <p>г.Астана</p>
+        </div>
+        <div>
+            <h3>Рабочие часы</h3>
+            <p>Ежедневно</p>
+            <p>с 08:00 до 22:00</p>
+        </div>
+    </div>
+    <div class="cellar"></div>
+</footer>
+</body>
+
+</html>

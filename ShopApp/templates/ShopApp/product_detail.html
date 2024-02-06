@@ -1,0 +1,25 @@
+{% extends 'layouts/index.html' %}
+
+{% block title %}Детальная страница продукта{% endblock %}
+{% load custom_tags %}
+{% block content %}
+    <div class="product-detail-container">
+        <h2>{{ product.title }}</h2>
+        <p>Цена: {{ product.price }}</p>
+        <p>{{ product.description }}</p>
+        {% if product.images.all %}
+            <div class="product-images">
+                {% for image in product.images.all %}
+                    <img src="{{ image.image.url }}" alt="{{ product.title }} - изображение">
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    {% filter_products as filtered_products %}
+
+    {% for product in filtered_products %}
+        <!-- Ваш код для отображения каждого продукта -->
+        {{ product.title }} - Цена: {{ product.price }}
+    {% endfor %}
+{% endblock %}

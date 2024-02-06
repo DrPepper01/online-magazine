@@ -1,0 +1,13 @@
+{% extends 'layouts/index.html' %}
+
+{% block title %}Домашняя страница{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <div id="product-list-container"></div>
+    <script type="text/babel" src="{% static 'js/ProductList.js' %}"></script>
+
+
+
+
+{% endblock %}
