@@ -59,14 +59,20 @@ class BaseTemplateView(View):
 class HomeTemplateView(View):
     template_name = 'ShopApp/home_page.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
+    def get(self, request, *args, **kwargs):
+        categories = Category.objects.all()
+        return render(request, self.template_name, {'categories': categories})
+
 
 
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'ShopApp/product_detail.html'
     context_object_name = 'product'
+
+
+
+
 
 
 class ProductCreateView(CreateAPIView):
@@ -372,7 +378,7 @@ class CartView(View):
         user = request.user
 
         # Получаем корзину пользователя
-        cart_items = CartItem.objects.filter(cart__user=user)
+        cart_items = CartItem.objects.filter(cart__user=user.id)
 
         # Считаем общую цену
         total_price = sum(item.get_total_price() for item in cart_items)
@@ -404,14 +410,23 @@ def update_quantity(request, cart_item_id):
 
 class CategoryDetailView(DetailView):
     model = Category
-    template_name = 'ShopApp/category_detail.html'  # Замените на ваш шаблон
+    template_name = 'ShopApp/category_detail.html'  #
     context_object_name = 'category'
     slug_field = 'slug'  # Указываем, что мы используем поле slug для поиска категории
     slug_url_kwarg = 'category_slug'  # Указываем, как будет выглядеть slug в URL
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()  # Передаем все категории в контекст
+
+        # Получаем текущую категорию
+        category = self.get_object()
+
+        # Передаем все категории в контекст
+        context['categories'] = Category.objects.all()
+
+        # Получаем все товары, связанные с текущей категорией
+        context['products'] = Product.objects.filter(category=category)
+
         return context
 
 

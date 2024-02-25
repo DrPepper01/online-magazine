@@ -3,5 +3,18 @@
 {% block title %}Детальная страница продукта{% endblock %}
 
 {% block content %}
+  <h1>{{ category.title }}</h1>
 
+  <ul class="list-group">
+    {% for product in products %}
+      <li class="list-group-item">
+        <p>
+          {{ product.image }}
+          <a href="{% url 'product_detail' pk=product.pk %}">{{ product.title }}</a>
+          {{ product.description }}
+          {{ product.price }}
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}

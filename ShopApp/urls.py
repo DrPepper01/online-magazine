@@ -8,7 +8,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from .views import BaseTemplateView, ProductViewSet, HomeTemplateView, ProductDetailView, CartView, update_quantity, \
     CategoryDetailView, DestroyProductView, ProductCreateView, ProductUpdateView, DeleteProductView, RegisterView, \
-    AuthWithToken
+    AuthWithToken, CategoryViewSet
 
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -44,7 +44,7 @@ urlpatterns = [
     path(r'products_list/<int:pk>', ProductDetailView.as_view(), name='products_detail'),
     path(r'cart/', CartView.as_view(), name='cart_view'),
     path(r'update_quantity/<int:cart_item_id>/', update_quantity, name='update_quantity'),
-    # path('base/', CategoryListView.as_view(), name='category_list'),
+    # path('base/', CategoryViewSet.as_view({'get': 'list'}), name='category_list'),
     path(r'categories/<slug:category_slug>/', CategoryDetailView.as_view(), name='category_detail'),
     # path('product/search/', views.product_search, name='product_search'),
 
