@@ -50,6 +50,16 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_THROTTLE_RATES': {
+        'custom': '10/min',  # идентификатор ограничения
+        'anon': '100/hour',
+        'user': '1000/day',
+    },
+    'DEFAULT_THROTTLE_CLASSES': [
+        'ShopApp.throttles.CustomRateThrottle',
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
 }
 
 SIMPLE_JWT = {

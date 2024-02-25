@@ -7,7 +7,8 @@ from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from .views import BaseTemplateView, ProductViewSet, HomeTemplateView, ProductDetailView, CartView, update_quantity, \
-    CategoryDetailView, DestroyProductView, ProductCreateView, ProductUpdateView, DeleteProductView
+    CategoryDetailView, DestroyProductView, ProductCreateView, ProductUpdateView, DeleteProductView, RegisterView, \
+    AuthWithToken
 
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -50,6 +51,9 @@ urlpatterns = [
     path(r'token/', TokenObtainPairView.as_view(), name='api_login'),
     path(r'token/refresh/', TokenRefreshView.as_view(), name='api_refresh'),
     path(r'auth/', views.authenticate_user),
+    path(r'register/', RegisterView.as_view()),
+    path(r'login/', AuthWithToken.as_view()),
+
 
     path(r'api/create-product', views.ProductCreateView.as_view(), name='api-create-product'),
     path(r'api/update-product/<int:pk>', views.UpdateProductView.as_view(), name='api-update-product'),

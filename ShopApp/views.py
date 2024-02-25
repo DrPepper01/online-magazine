@@ -10,15 +10,18 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
-from rest_framework import viewsets, permissions, status, filters, generics
+from rest_framework import viewsets, permissions, status, filters, generics, response
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import action, api_view
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.response import Response
 import django_filters.rest_framework as filters
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from . import throttles
 from .filters import ProductFilter
 from .forms import CustomAuthenticationForm, ProductForm
 from .models import Product, Category, Subcategory, DefaultUser, WishList, Cart, CartItem
@@ -40,6 +43,9 @@ class BaseTemplateView(View):
         categories = Category.objects.all()
         return render(request, self.template_name, {'categories': categories})
 
+    throttle_classes = [
+        throttles.CustomRateThrottle,
+    ]
 
 # def product_search(self,request, pk=None):
 #     search_query = request.GET.get('q', '')
@@ -212,6 +218,10 @@ class ProductViewSet(viewsets.ModelViewSet):
     filter_class = ProductFilter
     ordering_fields = ['title', 'price']
 
+    throttle_classes = [
+        throttles.CustomRateThrottle,
+    ]
+
     def get_serializer_class(self):
         if self.action == 'list':
             return ProductListSerializer
@@ -253,6 +263,10 @@ class ProductViewSet(viewsets.ModelViewSet):
 class CartViewSet(viewsets.ModelViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
+    throttle_classes = [
+        throttles.CustomRateThrottle,
+    ]
 
     def get_permissions(self):
         if self.action in ['create', 'list', 'retrieve']:
@@ -304,6 +318,18 @@ class FavoriteView(ListAPIView):
 
 
 # Views for DefaultUser
+
+class RegisterView(CreateAPIView):
+    queryset = DefaultUser.objects.all()
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
+
+
+class AuthWithToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        token = Token.objects.get(key=response.data['token'])
+        return Response({'token': token.key, 'user_id': token.user_id})
 
 class DefaultUserViewSet(viewsets.ModelViewSet):
     queryset = DefaultUser.objects.all()
